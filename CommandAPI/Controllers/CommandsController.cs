@@ -34,5 +34,7 @@ namespace CommandAPI.Controllers
             }
             return Ok(commandItem);
         }
+        // server name
+        //DESKTOP-AA6E89D
     }
 }
