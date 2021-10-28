@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CommandAPI.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 namespace CommandAPI
 {
@@ -33,7 +34,11 @@ namespace CommandAPI
 
             services.AddDbContext<CommandContext>(opt => opt.UseSqlServer(builder.ConnectionString));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
+                s.SerializerSettings.ContractResolver = new
+                    CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
